@@ -1,0 +1,9 @@
+Calq Framework is dual-licensed under:
+
+SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0 WITH LicenseRef-Calq-Evaluation-Grant OR LicenseRef-CCL
+
+1. PolyForm Noncommercial License 1.0.0 with Calq Evaluation Grant
+   See: LICENSES/PolyForm-Noncommercial-1.0.0.txt
+
+2. Calq Commercial License (CCL)
+   See: LICENSES/LicenseRef-CCL.txt

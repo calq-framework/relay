@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="CalqFramework.Relay.Cli/CalqFramework.Relay.Cli.csproj" />
+  <Project Path="CalqFramework.Relay.Tests/CalqFramework.Relay.Tests.csproj" />
+  <Project Path="CalqFramework.Relay/CalqFramework.Relay.csproj" />
+</Solution>

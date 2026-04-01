@@ -1,0 +1,25 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Calq Flow (publish)
+        uses: calq-framework/flow@latest
+        with:
+          subcommand: 'publish --api-key ${{ github.token }}'
+        env: ${{ secrets }}

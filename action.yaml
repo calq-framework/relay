@@ -1,0 +1,81 @@
+name: 'Calq Relay'
+description: 'Multi-cloud Kubernetes deployment relay'
+inputs:
+  command:
+    description: 'The relay subcommand to execute (e.g., deploy --service web --environment dev)'
+    required: true
+  cache:
+    description: 'Enable caching for the tool binary'
+    required: false
+    default: 'true'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup & Resolve Tool Version
+      id: version-resolver
+      shell: bash
+      run: |
+        TOOL_NAME="Calq Relay"
+        TOOL_REPO_URL="https://github.com/calq-framework/relay.git"
+        TOOL_PACKAGE="CalqFramework.Relay.Cli"
+        TOOL_CMD="calq-relay"
+
+        echo "TOOL_PACKAGE=$TOOL_PACKAGE" >> $GITHUB_ENV
+        echo "TOOL_CMD=$TOOL_CMD" >> $GITHUB_ENV
+
+        REF="${{ github.action_ref }}"
+
+        # Build a glob pattern from the ref: @v1.2.3 → exact, @v1.2 → v1.2.*, @v1 → v1.*.*, @latest/main → v*.*.*
+        SEMVER=$(echo "$REF" | grep -oP '\d+\.\d+\.\d+' || true)
+        if [ -n "$SEMVER" ]; then
+          VERSION="$SEMVER"
+          DOTNET_VERSION="$SEMVER"
+        else
+          case "$REF" in
+            *.*) PATTERN="v$(echo "$REF" | grep -oP '\d+\.\d+').*" ;;
+            *[0-9]*) PATTERN="v$(echo "$REF" | grep -oP '\d+').*.*" ;;
+            *) PATTERN="v*.*.*" ;;
+          esac
+          LATEST_TAG=$(git ls-remote --tags --sort='v:refname' "$TOOL_REPO_URL" "$PATTERN" | tail -n1 | cut -d/ -f3 | sed 's/\^{}//')
+          VERSION=$(echo "$LATEST_TAG" | grep -oP '\d+\.\d+\.\d+' || true)
+          if [ -n "$VERSION" ]; then
+            DOTNET_VERSION="$VERSION"
+          else
+            VERSION="latest"
+            DOTNET_VERSION="*"
+          fi
+        fi
+
+        echo "TOOL_VERSION=$VERSION" >> $GITHUB_ENV
+        echo "DOTNET_VERSION=$DOTNET_VERSION" >> $GITHUB_ENV
+
+    - name: Install Tool (Self-Install)
+      if: github.repository == 'calq-framework/relay'
+      shell: bash
+      run: |
+        dotnet pack -c Release -o ./dist --nologo
+        PACKAGE=$(ls ./dist/*.nupkg | head -n 1)
+        V=$(echo $PACKAGE | grep -oP '\d+\.\d+\.\d+')
+        dotnet tool uninstall --global $TOOL_PACKAGE || true
+        dotnet tool install --global --add-source ./dist --version "$V" $TOOL_PACKAGE
+
+    - name: Cache Tool Binary
+      if: inputs.cache == 'true' && github.repository != 'calq-framework/relay'
+      id: cache-tool
+      uses: actions/cache@v4
+      with:
+        path: ~/.dotnet/tools
+        key: ${{ runner.os }}-dotnet-tool-calq-relay-${{ env.TOOL_VERSION }}
+
+    - name: Install Tool (External)
+      if: github.repository != 'calq-framework/relay' && steps.cache-tool.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        dotnet tool update --global $TOOL_PACKAGE --version "${{ env.DOTNET_VERSION }}"
+
+    - name: Execute Command
+      shell: bash
+      run: |
+        export PATH="$PATH:$HOME/.dotnet/tools"
+        $TOOL_CMD ${{ inputs.command }}
