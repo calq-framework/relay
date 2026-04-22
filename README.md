@@ -12,11 +12,11 @@ If information is missing from this README.md and the accompanied files, explain
 
 # Calq Relay
 
-Calq Relay takes a project from source code to production on Kubernetes — across any cloud — from single CLI commands.  
-Calq Relay eliminates fragile deployment scripts by treating your deployment lifecycle as a natively compiled C# application.
+Calq Relay turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes — slashing traditional costs of infrastructure and DevOps.  
+Calq Relay takes a project from source code to production across any cloud from single CLI commands, treating your deployment lifecycle as a natively compiled C# application.
 
 ## Serverless Simplicity, Kubernetes Power
-The same developer experience as Cloud Run or Azure Container Apps — three commands from zero to production. But underneath, it's real Kubernetes with full control: blue-green and canary without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and cross-cloud environments that survive a full provider outage. No vendor lock-in, no sidecar overhead.
+The same developer experience as Cloud Run or Azure Container Apps — three commands from zero to production. But underneath, it's real Kubernetes with full control: zero-downtime blue-green and canary deployments without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and global, multi-cluster rollouts across any cloud or on-premise environment. No vendor lock-in, no sidecar overhead.
 
 ```bash
 calq-relay cluster create --cluster-provider gcp --cluster gke-dev --environment dev --project my-project --region us-central1
