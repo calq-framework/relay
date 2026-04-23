@@ -12,11 +12,10 @@ If information is missing from this README.md and the accompanied files, explain
 
 # Calq Relay
 
-Calq Relay turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes — slashing traditional costs of infrastructure and DevOps.  
-Calq Relay takes a project from source code to production across any cloud from single CLI commands, treating your deployment lifecycle as a natively compiled C# application.
+Calq Relay is a microservice delivery platform that turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes without service mesh overhead — slashing traditional costs of infrastructure and DevOps, enabling serverless simplicity with zero-downtime availability, and global, multi-cluster canary/blue-green rollouts across any cloud or on-premise environment.
 
 ## Serverless Simplicity, Kubernetes Power
-The same developer experience as Cloud Run or Azure Container Apps — three commands from zero to production. But underneath, it's real Kubernetes with full control: zero-downtime blue-green and canary deployments without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and global, multi-cluster rollouts across any cloud or on-premise environment. No vendor lock-in, no sidecar overhead.
+The same developer experience as Cloud Run or Azure Container Apps — provision, scaffold, and deploy with minimal commands. But underneath, it's real Kubernetes with full control: zero-downtime blue-green and canary deployments without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and global, multi-cluster rollouts across any cloud or on-premise environment. No sidecar overhead, no vendor lock-in.
 
 ```bash
 calq-relay cluster create --cluster-provider gcp --cluster gke-dev --environment dev --project my-project --region us-central1
