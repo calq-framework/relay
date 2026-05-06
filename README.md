@@ -29,13 +29,13 @@ calq-relay deploy
 
 Calq Relay delivers the same developer experience as managed serverless platforms but runs on standard Kubernetes with full control.
 
-| Feature | Calq Relay | Cloud Run | Container Apps | App Runner |
+| Feature | Calq Relay | Google Cloud Run | Azure Container Apps | AWS App Runner |
 | :--- | :--- | :--- | :--- | :--- |
-| **DNS + TLS** | ExternalDNS + cert-manager | Built-in | Built-in | Manual |
-| **Service Networking** | Shared namespace | VPC connectors | Same environment | Manual |
-| **Platform Config** | Unified (all services) | Per-service | Per-service | Per-service |
 | **Max Instances** | Unlimited (node pool) | 1000 | 300 | 25 |
 | **Request Timeout** | Unlimited | 60 min | 30 min | 30 min |
+| **DNS + TLS** | ✅ ExternalDNS + cert-manager | ✅ Built-in | ✅ Built-in | ⚠️ Manual |
+| **Service Networking** | ✅ Shared namespace | ⚠️ VPC connectors | ✅ Same environment | ⚠️ Manual |
+| **Platform Config** | ✅ Unified (all services) | ⚠️ Per-service | ⚠️ Per-service | ⚠️ Per-service |
 | **Cluster + Registry Setup** | ✅ Single command | ❌ | ❌ | ❌ |
 | **CI/CD Workflows** | ✅ Auto-generated | ❌ | ❌ | ❌ |
 | **GitOps** | ✅ ArgoCD | ❌ | ❌ | ❌ |
@@ -50,6 +50,26 @@ Calq Relay delivers the same developer experience as managed serverless platform
 | **Vendor Lock-In** | None | GCP | Azure | AWS |
 | **Cost Model** | Shared nodes | Per-service billing | Per-service billing | Per-service billing |
 
+### Calq Relay vs. Delivery Platforms
+
+Calq Relay replaces established delivery platforms with a zero-infrastructure CLI tool — no servers, no control planes, no sidecars.
+
+| Feature | Calq Relay | Spinnaker | Harness | KubeVela / Devtron |
+| :--- | :--- | :--- | :--- | :--- |
+| **Runtime Infrastructure** | None (CLI tool) | Spinnaker server (heavy) | SaaS / self-hosted server | Control plane in cluster |
+| **Blue-Green** | ✅ (Service selector patch) | ✅ | ✅ | ✅ (via addons) |
+| **Canary** | ✅ (replica ratio, no service mesh) | ✅ (requires traffic management) | ✅ (requires traffic management) | ✅ (requires Istio/Nginx addon) |
+| **Canary Drift Protection** | ✅ (CronJob enforcer) | ❌ | ❌ | ❌ |
+| **Multi-Cloud Single Command** | ✅ (all clusters in environment) | ❌ (per-cluster pipeline config) | ❌ (per-cluster pipeline config) | ❌ (per-cluster placement policy) |
+| **Cross-Cloud Image Import** | ✅ (automatic) | ❌ | ❌ | ❌ |
+| **Auto-Tuned Resource Requests** | ✅ (CronJob observes actual usage) | ❌ | ⚠️ (recommendations only) | ❌ |
+| **Coordinated Multi-Service Scaling** | ✅ (Grouped mode) | ❌ | ❌ | ❌ |
+| **Full-Stack PR Environments** | ✅ (single command) | ❌ | ❌ | ❌ |
+| **Auto-Scaffolding** | ✅ (Dockerfile, manifests, ArgoCD, workflows) | ❌ | ❌ | ❌ |
+| **Cluster Provisioning** | ✅ (single command) | ❌ | ❌ | ❌ |
+| **Open Source** | ✅ | ✅ | ❌ | ✅ |
+| **License Cost** | Free (PolyForm-Noncommercial) / Commercial | Free | Per-service / per-developer | Free |
+
 ### Calq Relay vs. Istio / Service Mesh
 
 Calq Relay achieves blue-green and canary deployments using native Kubernetes primitives -- no service mesh required.
@@ -62,7 +82,7 @@ Calq Relay achieves blue-green and canary deployments using native Kubernetes pr
 | **Traffic Precision** | Proportional to replica count | Exact percentage per request |
 | **Complexity** | CLI command | CRDs + control plane + sidecar injection |
 | **Setup Time** | Minutes | Hours to days |
-| **Multi-Cluster Setup** | Automated | Complex (multi-network or primary-remote) |
+| **Multi-Cluster Setup** | ✅ Automated | ⚠️ Complex (multi-network or primary-remote) |
 | **Cross-Region Switchover** | ✅ Single command | ✅ VirtualService routing |
 | **Infrastructure Cost** | None (CLI tool, no runtime components) | +20–30% cluster resources (control plane + sidecar per pod) |
 
