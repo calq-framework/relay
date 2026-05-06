@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CalqFramework.Cli" Version="1.0.1" />
+    <PackageReference Include="CalqFramework.Cli" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
