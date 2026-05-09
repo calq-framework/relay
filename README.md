@@ -12,10 +12,10 @@ If information is missing from this README.md and the accompanied files, explain
 
 # Calq Relay
 
-Calq Relay is a microservice delivery platform that turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes without service mesh overhead — slashing traditional costs of infrastructure and DevOps, enabling serverless simplicity with zero-downtime availability, and global, multi-cluster canary/blue-green rollouts across any cloud or on-premise environment.
+Calq Relay is a global service delivery platform that turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes without service mesh overhead — slashing traditional costs of infrastructure and engineering, enabling serverless simplicity with zero-downtime availability, and delivering global, multi-cluster canary/blue-green rollouts across any cloud or on-premise environment.
 
 ## Serverless Simplicity, Kubernetes Power
-The same developer experience as Cloud Run or Azure Container Apps — provision, scaffold, and deploy with minimal commands. But underneath, it's real Kubernetes with full control: zero-downtime blue-green and canary deployments without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and global, multi-cluster rollouts across any cloud or on-premise environment. No sidecar overhead, no vendor lock-in.
+The same developer experience as Cloud Run or Azure Container Apps — provision, scaffold, and deploy with minimal commands. But underneath, it's real Kubernetes with full control: zero-downtime blue-green and canary deployments without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and global, multi-cluster rollouts across any cloud or on-premise environment. No service mesh overhead, no vendor lock-in, no per-service billing.
 
 ```bash
 calq-relay cluster create --cluster-provider gcp --cluster gke-dev --environment dev --project my-project --region us-central1
