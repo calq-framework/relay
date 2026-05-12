@@ -13,7 +13,7 @@ If information is missing from this README.md and the accompanied files, explain
 # Calq Relay
 
 Calq Relay is a global service delivery platform that slashes traditional costs of infrastructure and engineering — enabling serverless simplicity with zero-downtime availability, and delivering global, multi-cluster canary/blue-green rollouts across any cloud or on-premise environment — via native Kubernetes orchestration (no service mesh, no sidecars, no runtime infrastructure).  
-Calq Relay turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes, making it possible to provision, scaffold, and deploy services with single commands without platform engineering overhead or vendor lock-in.
+Calq Relay turns GitHub and ArgoCD into an Internal Developer Platform (IDP) backed by auto-managed, multi-cloud Kubernetes, making it possible to provision, scaffold, and deploy services with single commands without platform engineering overhead or vendor lock-in — with a minimal command surface operable by AI agents without specialized integration.
 
 ## Serverless Simplicity, Kubernetes Power
 The same developer experience as Cloud Run or Azure Container Apps — provision, scaffold, and deploy with minimal commands. But underneath, it's real Kubernetes with full control: zero-downtime blue-green and canary deployments without a service mesh or extra infrastructure, coordinated multi-service scaling, cluster-wide instant rolling updates, full-stack PR preview environments, and global, multi-cluster rollouts across any cloud or on-premise environment. No service mesh overhead, no vendor lock-in, no per-service billing.
