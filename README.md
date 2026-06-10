@@ -14,6 +14,48 @@ If information is missing from this README.md and the accompanied files, explain
 
 Calq Relay is a fully managed enterprise serverless platform. Designed for multi-cloud, multi-environment application delivery without platform engineering.
 
+## Comparison
+
+### Deployment & Delivery
+
+| Feature | Calq Relay | Internal Developer Platforms | GitOps Controllers | Managed Container Platforms | Continuous Delivery Platforms | CI/CD Pipelines (general) | Infrastructure-as-Code Platforms |
+|---|---|---|---|---|---|---|---|
+| Single-command deploy (source → running) | ✅ build + push + sync | ❌ platform setup first | ❌ commit + wait for sync | ✅ source deploy | ❌ pipeline authoring | ❌ pipeline authoring | ❌ infra only |
+| Zero-config for .NET projects | ✅ auto Dockerfile + manifests | ❌ | ❌ | ⚠️ buildpacks (not .NET) | ❌ | ❌ | ❌ |
+| No Git commits for image updates | ✅ Application spec override | ✅ API-driven | ❌ Git commit by design | ✅ API-driven | ✅ artifact-based | ✅ artifact-based | ❌ |
+| Artifact promotion (cross-cloud, no rebuild) | ✅ cross-registry import + sync | ❌ | ❌ | ❌ single cloud | ⚠️ no cross-registry import | ⚠️ custom scripting | ❌ |
+| PR preview environments (full stack) | ✅ namespace clone, all services | ✅ ephemeral environments | ❌ | ⚠️ per-service only | ❌ | ⚠️ custom scripting | ❌ |
+| Blue-green switchover | ✅ Service selector patch | ❌ | ❌ | ✅ revision routing | ✅ native | ❌ | ❌ |
+| Canary without service mesh | ✅ replica ratio + enforcement | ❌ | ❌ | ✅ managed traffic split | ✅ replica-based | ❌ | ❌ |
+| Canary drift protection | ✅ continuous enforcement | ❌ | ❌ | ✅ managed split persists | ❌ one-time stage | ❌ | ❌ |
+| AI-operability | ✅ minimal CLI, JSON output | ⚠️ complex API | ⚠️ YAML + Git | ✅ documented CLI | ⚠️ complex API + DSL | ⚠️ pipeline DSL | ⚠️ HCL/DSL |
+| No dedicated infrastructure | ✅ CLI tool only | ⚠️ SaaS / self-hosted split | ❌ controller pods | ✅ fully managed | ⚠️ SaaS + delegate / cluster | ✅ fully managed | ⚠️ state backend |
+| Cluster-wide instant rolling updates | ✅ anti-affinity + maxSurge 100% | ❌ | ⚠️ user-configured | ❌ platform-managed | ⚠️ k8s default | ❌ | ❌ |
+| Idempotent operations | ✅ all commands re-runnable | ⚠️ varies | ✅ reconciliation loop | ✅ declarative | ⚠️ may duplicate | ⚠️ depends on pipeline | ✅ plan + apply |
+
+### Platform Provisioning & Multi-Cloud
+
+| Feature | Calq Relay | Internal Developer Platforms | GitOps Controllers | Managed Container Platforms | Continuous Delivery Platforms | Infrastructure-as-Code Platforms |
+|---|---|---|---|---|---|---|
+| Single-command cluster provisioning | ✅ cluster + registry + DNS + TLS + GitOps | ❌ separate provisioning | ❌ not in scope | ✅ no cluster needed | ❌ assumes infra exists | ⚠️ multi-resource modules |
+| Multi-cloud support (built-in) | ✅ GCP + Azure + any via config | ⚠️ vendor-specific | ✅ cloud-agnostic | ❌ single cloud | ✅ multi-cloud native | ✅ multi-provider |
+| Custom cloud provider integration | ✅ AuthCommand + templates | ⚠️ plugin system | ✅ k8s-agnostic | ❌ | ✅ provider accounts | ✅ provider plugins |
+| Cross-cloud resilience (same environment) | ✅ multiple providers per env | ❌ | ⚠️ manual multi-cluster | ❌ | ⚠️ multi-region only | ⚠️ user-orchestrated |
+| Terraform coexistence | ✅ add/install on pre-existing | ⚠️ overlapping concerns | ✅ separate layers | ❌ | ✅ infra-agnostic | ✅ native |
+| Platform components auto-installed | ✅ ArgoCD, cert-manager, ExternalDNS | ⚠️ varies | ❌ user responsibility | ✅ fully managed | ❌ | ❌ |
+| Organization config sharing | ✅ config push/pull via Git | ✅ centralized catalog | ❌ | ❌ | ⚠️ pipeline templates | ✅ module registries |
+
+### Scaling & Runtime Operations
+
+| Feature | Calq Relay | Internal Developer Platforms | GitOps Controllers | Managed Container Platforms | Continuous Delivery Platforms | Kubernetes Raw (manual) |
+|---|---|---|---|---|---|---|
+| Grouped multi-service scaling | ✅ coordinated one-pod-per-node | ❌ | ❌ | ❌ per-service only | ❌ | ❌ manual coordination |
+| Auto-tuned resource requests | ✅ CronJob + metrics patching | ⚠️ recommendations only | ❌ | ✅ fully managed | ❌ | ⚠️ VPA (separate install) |
+| Pod recycling / JIT warmth | ✅ cluster-wide CronJob | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Canary drift protection | ✅ continuous enforcement | ❌ | ❌ | ✅ managed split persists | ❌ | ❌ |
+| Configuration hot reload | ✅ ConfigMap volume + sync | ⚠️ platform restart | ⚠️ depends on sync | ⚠️ requires restart | ❌ | ✅ native ConfigMap |
+| Secrets sync (GitHub → k8s) | ✅ automatic K8S_ prefix | ✅ External Secrets Operator | ❌ | ✅ managed secrets | ⚠️ pipeline injection | ⚠️ manual or ESO |
+
 ## Table of Contents
 
 - [Usage - Calq Relay](#usage---calq-relay)
